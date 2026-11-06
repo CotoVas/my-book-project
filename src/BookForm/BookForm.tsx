@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import styled from '@emotion/styled';
-import type { BookStatus } from '../types/book';
+import type { Book, BookStatus } from '../types/book';
+
+interface BookFormProps {
+  addBook: (book: Omit<Book, 'id'>) => void;
+}
 
 const FormContainer = styled.form`
   background: #222;
@@ -72,15 +76,52 @@ const SubmitButton = styled.button`
   &:hover { background: #c9a045; }
 `;
 
-export function BookForm() {
+const ErrorMessage = styled.p`
+  color: #ff0000;
+  font-size: 0.85rem;
+  margin: 0;
+  text-align: center;
+`;
+
+
+export function BookForm({ addBook }: BookFormProps) {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [note, setNote] = useState('');
   const [status, setStatus] = useState<BookStatus>('want');
   const [rating, setRating] = useState(0);
+  const [cover, setCover] = useState('');
+  const [error, setError] = useState('');
+
+    const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!title.trim() || !author.trim()) {
+      setError('Пожалуйста, заполните поля с *!');
+      return;
+    }
+
+    setError('');
+
+    addBook({
+      title,
+      author,
+      status,
+      rating: status === 'done' ? rating : undefined,
+      note: status === 'done' ? note : undefined,
+      coverUrl: cover || undefined,
+    });
+
+    setTitle('');
+    setAuthor('');
+    setCover('');
+    setStatus('want');
+    setRating(0);
+    setNote('');
+  };
 
   return (
-    <FormContainer onSubmit={(e) => e.preventDefault()}>
+    <FormContainer onSubmit={handleSubmit}>
       <Title>Добавить книгу</Title>
 
       <Field>
@@ -89,7 +130,7 @@ export function BookForm() {
           type="text" 
           value={title} 
           onChange={(e) => setTitle(e.target.value)} 
-          placeholder="Например: Утро вторника"
+          placeholder="Например: Утро вторника      *"
         />
       </Field>
 
@@ -99,7 +140,17 @@ export function BookForm() {
           type="text" 
           value={author} 
           onChange={(e) => setAuthor(e.target.value)} 
-          placeholder="Например: К. Рыбкин"
+          placeholder="Например: К. Рыбкин      *"
+        />
+      </Field>
+
+      <Field>
+        Обложка (URL картинки):
+        <StyledInput 
+          type="text" 
+          value={cover} 
+          onChange={(e) => setCover(e.target.value)} 
+          placeholder="https://..."
         />
       </Field>
 
@@ -141,8 +192,10 @@ export function BookForm() {
         />
       </Field>
       
+      {error && <ErrorMessage>{error}</ErrorMessage>}
+
       <SubmitButton type="submit">
-        Сохранить (на данном этапе не реализовано)
+        Сохранить книгу
       </SubmitButton>
     </FormContainer>
   );

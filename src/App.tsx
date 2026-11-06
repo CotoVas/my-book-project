@@ -10,6 +10,8 @@ import { TasksDemo } from './TasksDemo/Tasks';
 import type { Book } from './types/book';
 import type { NewBookType } from './types/NewBookType';
 import { BookForm } from './BookForm/BookForm';
+import { EventFormDemo } from './Form/EventFormDemo';
+import { ProfileSettings } from './ProfileSettings/ProfileSettings';
 
 
 
@@ -17,6 +19,14 @@ function App() {
   const [books, setBooks] = useState<Book[]>(initialBooks);
   const deleteBook = (id: number) => {
     setBooks((prev) => prev.filter((book) => book.id !== id));
+  };
+
+    const addBook = (bookData: Omit<Book, 'id'>) => {
+    const newBook: Book = {
+      ...bookData,
+      id: Date.now(),
+    };
+    setBooks((prev) => [...prev, newBook]);
   };
 
   const demoBook: NewBookType = {
@@ -39,8 +49,10 @@ function App() {
       </main>
       <Stats books={books} />
       <BookList books={books} deleteBook={deleteBook} />
-      <BookForm />
+      <BookForm addBook={addBook} />
       <TasksDemo />
+      <EventFormDemo />
+      <ProfileSettings />
       <Footer />
     </>
   );
