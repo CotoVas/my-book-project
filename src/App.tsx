@@ -1,19 +1,17 @@
 import './App.css';
 import { useState } from 'react';
+import bookLogo from './assets/book-logo.png';
 import { BookList } from './components/BookList';
 import { Footer } from './components/Footer';
-import { Header } from './components/Header';
 import { NewBook } from './NewBook/NewBook';
 import { Stats } from './Stats/Stats';
-import { initialBooks } from './data/book'; 
-import { TasksDemo } from './TasksDemo/Tasks'; 
+import { initialBooks } from './data/book';
+import { TasksDemo } from './TasksDemo/Tasks';
 import type { Book } from './types/book';
 import type { NewBookType } from './types/NewBookType';
 import { BookForm } from './BookForm/BookForm';
 import { EventFormDemo } from './Form/EventFormDemo';
 import { ProfileSettings } from './ProfileSettings/ProfileSettings';
-
-
 
 function App() {
   const [books, setBooks] = useState<Book[]>(initialBooks);
@@ -41,20 +39,25 @@ function App() {
   };
 
   return (
-    <>
-      <Header />
+    <div className="page">
+      <header className="app-header">
+        <img className="app-logo" src={bookLogo} alt="BookStore" />
+        <h1 className="app-title">Welcome to the BookStore</h1>
+        <p className="app-subtitle">Твоя цифровая книжная полка</p>
+      </header>
       <main>
-        <h1>Welcome to the BookStore</h1>
-        <NewBook book={demoBook} /> 
+        <NewBook book={demoBook} />
       </main>
       <Stats books={books} />
-      <BookList books={books} deleteBook={deleteBook} />
-      <BookForm addBook={addBook} />
+      <main className="app-content">
+        <BookList books={books} deleteBook={deleteBook} />
+        <BookForm addBook={addBook} />
+      </main>
       <TasksDemo />
       <EventFormDemo />
       <ProfileSettings />
       <Footer />
-    </>
+    </div>
   );
 }
 

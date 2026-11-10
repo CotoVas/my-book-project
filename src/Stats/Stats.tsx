@@ -1,4 +1,8 @@
 import styled from '@emotion/styled';
+import booksIcon from '../assets/books.png';
+import checkIcon from '../assets/check.png';
+import bookOpenIcon from '../assets/book-open.png';
+import bookmarkIcon from '../assets/bookmark.png';
 import type { Book } from '../types/book';
 
 interface StatsProps {
@@ -7,6 +11,17 @@ interface StatsProps {
 
 const StatsSection = styled.section`
   margin: 24px 0;
+`;
+
+const LabelRow = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+`;
+
+const Icon = styled.img`
+  width: 16px;
+  height: 16px;
 `;
 
 const StatsWrapper = styled.div`
@@ -42,19 +57,31 @@ export const Stats = ({ books }: StatsProps) => {
     <StatsSection>
       <StatsWrapper>
         <StatCard>
-          <Label>Всего</Label>
+          <LabelRow>
+            <Icon src={booksIcon} alt="" aria-hidden="true" />
+            <Label>Всего</Label>
+          </LabelRow>
           <Value>{total}</Value>
         </StatCard>
         <StatCard>
-          <Label>Прочитано</Label>
+          <LabelRow>
+            <Icon src={checkIcon} alt="" aria-hidden="true" />
+            <Label>Прочитано</Label>
+          </LabelRow>
           <Value>{done}</Value>
         </StatCard>
         <StatCard>
-          <Label>Читаю</Label>
+          <LabelRow>
+            <Icon src={bookOpenIcon} alt="" aria-hidden="true" />
+            <Label>Читаю</Label>
+          </LabelRow>
           <Value>{reading}</Value>
         </StatCard>
         <StatCard>
-          <Label>Хочу прочитать</Label>
+          <LabelRow>
+            <Icon src={bookmarkIcon} alt="" aria-hidden="true" />
+            <Label>Хочу прочитать</Label>
+          </LabelRow>
           <Value>{want}</Value>
         </StatCard>
       </StatsWrapper>
