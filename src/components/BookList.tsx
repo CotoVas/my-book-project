@@ -14,7 +14,7 @@ const List = styled.div`
   align-items: flex-start;
 `;
 
-const EmptyMessage = styled.p`
+const EmptyMessage = styled.div`
   text-align: center;
   font-size: 18px;
   color: #888;

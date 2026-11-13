@@ -17,7 +17,7 @@ export const NewBook = ({ book }: NewBookProps) => {
         <div className="new-book__text">
           <p className="new-book__name">{book.title}</p>
           <p className="new-book__author">{book.author}</p>
-          <p className="new-book__rating">⭐ {book.rating}</p>
+          <p className="new-book__rating">★ {book.rating}</p>
 
           <div className="new-book__price">
             <span className="new-book__price-old">{book.oldPrice} ₽</span>

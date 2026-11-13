@@ -149,7 +149,7 @@ export function ProfileSettings() {
       <Field>
         Размер текста:
         <StyledInput
-          type="number"
+          type="range"
           min={12}
           max={30}
           value={fontSize}

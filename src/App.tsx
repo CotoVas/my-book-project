@@ -1,3 +1,4 @@
+// ИМПОРТЫ
 import './App.css';
 import { useState } from 'react';
 import bookLogo from './assets/book-logo.png';
@@ -12,7 +13,7 @@ import type { NewBookType } from './types/NewBookType';
 import { BookForm } from './BookForm/BookForm';
 import { EventFormDemo } from './Form/EventFormDemo';
 import { ProfileSettings } from './ProfileSettings/ProfileSettings';
-
+//Прочее
 function App() {
   const [books, setBooks] = useState<Book[]>(initialBooks);
   const deleteBook = (id: number) => {
@@ -38,21 +39,20 @@ function App() {
     cover: '/covers/geroi.jpg',
   };
 
+  // ИТОГ
   return (
     <div className="page">
       <header className="app-header">
         <img className="app-logo" src={bookLogo} alt="BookStore" />
         <h1 className="app-title">Welcome to the BookStore</h1>
-        <p className="app-subtitle">Твоя цифровая книжная полка</p>
+        <p className="app-subtitle">📖 Это ваша книжная полка 📖</p>
       </header>
-      <main>
-        <NewBook book={demoBook} />
-      </main>
       <Stats books={books} />
       <main className="app-content">
         <BookList books={books} deleteBook={deleteBook} />
         <BookForm addBook={addBook} />
       </main>
+      <NewBook book={demoBook} />
       <TasksDemo />
       <EventFormDemo />
       <ProfileSettings />
